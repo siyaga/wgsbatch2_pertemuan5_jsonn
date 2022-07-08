@@ -69,7 +69,10 @@ const rl = readline.createInterface({
 //     }
 
 
-    // Membuat fungsi untuk menambahkan data array
+    // Membuat fungsi pertanyaan untuk menambahkan data array
+    const pertanyaan = () => {
+
+    
     rl.question('What your name? ',(name) => {   
         rl.question('What your number? ', (mobile)=> {
             const contact = {name, mobile};
@@ -82,6 +85,7 @@ const rl = readline.createInterface({
          
     });
     });
-    
+}
         
+pertanyaan();
  
