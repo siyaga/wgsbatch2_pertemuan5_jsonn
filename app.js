@@ -69,28 +69,57 @@ const rl = readline.createInterface({
 //     }
 
 
-    // Membuat fungsi pertanyaan untuk menambahkan data array
-    const pertanyaan = () => {
+// Membuat fungsi pertanyaan untuk menambahkan data array
+const questions = (ask) => {
 
-    
-    rl.question('What your name? ',(name) => {   
-        rl.question('What your number? ', (mobile)=> {
+  return new Promise((resolve,reject) => {
+    rl.question(ask,(inputVariable) => {   
+        resolve(inputVariable);
+
+    });
+  });  
+
+};
+
+//  rl.question('What your name? ',(name) => {   
+//         rl.question('What your number? ', (mobile)=> {
+//             const contact = {name, mobile};
+//             // Validasi Memeriksa Folder dan File
+//             // periksaFolder();
+//             // periksaFile();
+           
+//             // Memasukan Data ke dalama array contacts.json
+//             const file = fs.readFileSync('data/contacts.json', 'utf8');
+//             const contacts =JSON.parse(file);
+//             contacts.push(contact);
+//             fs.writeFileSync('data/contacts.json', JSON.stringify(contacts));
+//             console.log("Terima Kasih sudah memasukkan data!");
+//             rl.close();
+         
+//     });
+//     });
+
+
+
+//Membuat contact function
+const main = async() => {
+            // menambahkan beberapa pertanyaan
+            const name = await questions('What is your name : ');
+            const mobile = await questions('What mobile number : ');
+
+
             const contact = {name, mobile};
-            // Validasi Memeriksa Folder dan File
+              // Validasi Memeriksa Folder dan File
             periksaFolder();
             periksaFile();
            
             // Memasukan Data ke dalama array contacts.json
-            const file = fs.readFileSync('data/contacts.json', 'utf8');
-            const contacts =JSON.parse(file);
-            contacts.push(contact);
-            fs.writeFileSync('data/contacts.json', JSON.stringify(contacts));
-            console.log("Terima Kasih sudah memasukkan data!");
+            memasukanIsiData(contact);
             rl.close();
          
-    });
-    });
-}
+};
+
+
 
  // Membuat fungsion periksaFolder
 const periksaFolder = ()=> {
@@ -110,6 +139,14 @@ const periksaFile = ()=> {
          fs.writeFileSync(dataPath,'[]','utf-8');
      }
 }
+
+const memasukanIsiData = (contact) => {
+    const file = fs.readFileSync('data/contacts.json', 'utf8');
+    const contacts =JSON.parse(file);
+    contacts.push(contact);
+    fs.writeFileSync('data/contacts.json', JSON.stringify(contacts));
+    console.log("Terima Kasih sudah memasukkan data!");
+}
         
-pertanyaan();
+main();
  
