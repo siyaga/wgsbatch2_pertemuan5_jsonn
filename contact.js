@@ -19,22 +19,8 @@ const questions = (ask) => {
   
   };
 
-  const main = async() => {
-    // menambahkan beberapa pertanyaan
-    const name = await questions('What is your name : ');
-    const mobile = await questions('What is your mobile number : ');
-    const email = await questions('What is your email : ')
+  
 
-    const contact = {name, mobile};
-      // Validasi Memeriksa Folder dan File
-    periksaFolder();
-    periksaFile();
-   
-    // Memasukan Data ke dalama array contacts.json
-    memasukanIsiData(contact);
-    rl.close();
- 
-};
 
 
 
@@ -56,15 +42,19 @@ if(!fs.existsSync(dataPath)){
  fs.writeFileSync(dataPath,'[]','utf-8');
 }
 }
-
-const memasukanIsiData = (contact) => {
+//Simpan Data
+const saveIsiData = (name,mobile,email) => {
+periksaFolder();
+periksaFile();
+const contact = {name, mobile, email};
 const file = fs.readFileSync('data/contacts.json', 'utf8');
 const contacts =JSON.parse(file);
 contacts.push(contact);
 fs.writeFileSync('data/contacts.json', JSON.stringify(contacts));
 console.log("Terima Kasih sudah memasukkan data!");
+
+rl.close();
 }
 
-main();
 
-module.exports = {main};
+module.exports = { questions,saveIsiData};
