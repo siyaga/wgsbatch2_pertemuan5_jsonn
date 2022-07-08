@@ -76,6 +76,17 @@ const rl = readline.createInterface({
     rl.question('What your name? ',(name) => {   
         rl.question('What your number? ', (mobile)=> {
             const contact = {name, mobile};
+            //Membuat folder data apabila tidak ada
+            const dirPath = './data';
+            if(!fs.existsSync(dirPath)){
+                fs.mkdirSync(dirPath);
+            }
+            // Membuat file contacts.json jika belum ada
+            const dataPath = './data/contacts.json';
+            if(!fs.existsSync(dataPath)){
+                fs.writeFileSync(dataPath,'[]','utf-8');
+            }
+            // Memasukan Data ke dalama array contacts.json
             const file = fs.readFileSync('data/contacts.json', 'utf8');
             const contacts =JSON.parse(file);
             contacts.push(contact);
